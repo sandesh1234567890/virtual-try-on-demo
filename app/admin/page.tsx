@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
 
     // Fetch products from Real DB

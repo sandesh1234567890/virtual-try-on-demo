@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { products as initialProducts } from "@/lib/products";
 import ClientHome from "@/components/ClientHome";
 
+export const dynamic = 'force-dynamic';
+
 // Standard Server Component
 export default async function Home({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
 
