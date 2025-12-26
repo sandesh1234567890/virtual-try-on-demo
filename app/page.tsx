@@ -8,21 +8,24 @@ export const dynamic = 'force-dynamic';
 // Standard Server Component
 export default async function Home({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
 
-  // 1. Check for Auto-Seeding
-  const productCount = await prisma.product.count();
-  if (productCount === 0) {
-    console.log("Seeding initial products...");
-    // Seed sequentially to avoid race conditions in SQLite sometimes
-    for (const p of initialProducts) {
-      await prisma.product.create({
-        data: {
-          name: p.name,
-          category: p.category,
-          image: p.image,
-          stock: 10 // Default stock
-        }
-      });
+  // 1. Check for Auto-Seeding (Wrapped in try-catch for Vercel read-only support)
+  try {
+    const productCount = await prisma.product.count();
+    if (productCount === 0) {
+      console.log("Seeding initial products...");
+      for (const p of initialProducts) {
+        await prisma.product.create({
+          data: {
+            name: p.name,
+            category: p.category,
+            image: p.image,
+            stock: 10
+          }
+        });
+      }
     }
+  } catch (e) {
+    console.warn("Seeding skipped or failed (common on Vercel read-only):", e);
   }
 
   // 2. Fetch from DB
