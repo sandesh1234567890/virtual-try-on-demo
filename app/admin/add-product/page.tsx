@@ -107,7 +107,6 @@ export default function AddProductPage() {
                                         type="file"
                                         accept="image/*"
                                         className="hidden"
-                                        required
                                         onChange={(e) => {
                                             const file = e.target.files?.[0];
                                             if (file) {

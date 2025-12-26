@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${API_KEY}`;
 
 export async function POST(request: NextRequest) {
     try {
@@ -43,7 +43,13 @@ export async function POST(request: NextRequest) {
             garmentMimeType = garmentImage.type || 'image/jpeg';
         }
 
-        const promptText = `You are an expert at photo editing. Your task is to perform a virtual try-on. Take the person from the first image and realistically place the garment, which is a '${productName}', from the second image onto their torso. The garment should fit their body shape and pose naturally. Preserve the original background, the person's head, arms, and legs. Output only the final, edited image.`;
+        const promptText = `PHOTO EDITING TASK: Perform a realistic virtual try-on. 
+1. The first image is the person. 
+2. The second image is the garment (a "${productName}"). 
+3. Replace the person's current upper-body clothing with this new garment. 
+4. Ensure the garment fits their body shape, pose, and lighting perfectly. 
+5. Keep the person's head, arms, legs, and background exactly as they are. 
+6. Output ONLY the final high-quality edited image.`;
 
         const payload = {
             contents: [{
@@ -83,12 +89,16 @@ export async function POST(request: NextRequest) {
         const result = await response.json();
         const part = result?.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData);
         const base64Data = part?.inlineData?.data;
+        const mimeType = part?.inlineData?.mimeType || 'image/png';
 
         if (!base64Data) {
             return NextResponse.json({ error: "No image generated" }, { status: 500 });
         }
 
-        return NextResponse.json({ image: base64Data });
+        return NextResponse.json({
+            image: base64Data,
+            mimeType: mimeType
+        });
 
     } catch (error: any) {
         console.error("Server Error:", error);

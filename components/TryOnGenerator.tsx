@@ -20,6 +20,7 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
     // Generation State
     const [isGenerating, setIsGenerating] = useState(false);
     const [resultImage, setResultImage] = useState<string | null>(null);
+    const [resultMimeType, setResultMimeType] = useState<string>('image/png');
     const [error, setError] = useState<string | null>(null);
 
     const handleUserFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +84,8 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
 
             const data = await response.json();
             if (data.image) {
-                setResultImage(`data:image/png;base64,${data.image}`);
+                setResultMimeType(data.mimeType || 'image/png');
+                setResultImage(`data:${data.mimeType || 'image/png'};base64,${data.image}`);
             } else {
                 throw new Error('No image returned');
             }
@@ -264,9 +266,10 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
                                 </button>
                                 <button
                                     onClick={() => {
+                                        const extension = resultMimeType.split('/')[1] || 'png';
                                         const link = document.createElement('a');
                                         link.href = resultImage;
-                                        link.download = 'try-on-result.png';
+                                        link.download = `try-on-result.${extension}`;
                                         link.click();
                                     }}
                                     className="bg-indigo-600 text-white px-4 py-2 rounded-full shadow hover:bg-indigo-700 font-bold text-xs flex items-center gap-1.5 transition-transform active:scale-95"
