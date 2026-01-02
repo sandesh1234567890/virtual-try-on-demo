@@ -35,11 +35,11 @@ export default function ProductCard({ product, onTryOn }: ProductCardProps) {
             </div>
 
             {/* Content */}
-            <div className="p-5">
-                <div className="mb-1 text-xs font-bold tracking-wide text-blue-600 uppercase">
+            <div className="p-3 md:p-5">
+                <div className="mb-0.5 md:mb-1 text-[10px] md:text-xs font-bold tracking-wide text-blue-600 uppercase">
                     {product.category}
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 font-outfit mb-2 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-sm md:text-lg font-semibold text-gray-900 font-outfit mb-1 md:mb-2 group-hover:text-blue-600 transition-colors line-clamp-1 md:line-clamp-2">
                     {product.name}
                 </h3>
             </div>

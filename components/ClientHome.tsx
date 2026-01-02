@@ -85,7 +85,7 @@ export default function ClientHome({ products, categories, activeCategory }: Cli
 
                     {/* Grid */}
                     <div className="flex-1">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
 
                             {/* "Upload Your Own" Card - Always First */}
                             <div
@@ -97,8 +97,8 @@ export default function ClientHome({ products, categories, activeCategory }: Cli
                                     <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                                         <Sparkles className="text-white w-8 h-8" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">Upload Custom</h3>
-                                    <p className="text-blue-100 text-sm leading-relaxed">
+                                    <h3 className="text-lg md:text-2xl font-bold text-white mb-2">Upload Custom</h3>
+                                    <p className="text-blue-100 text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-none">
                                         Have a specific item in mind? Upload any image or URL to try it on.
                                     </p>
                                     <div className="mt-8 px-6 py-2 bg-white text-blue-900 rounded-full text-sm font-bold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
