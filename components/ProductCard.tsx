@@ -27,19 +27,19 @@ export default function ProductCard({ product, onTryOn }: ProductCardProps) {
                 {/* Floating Action Button */}
                 <button
                     onClick={() => onTryOn(product)}
-                    className="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-white text-gray-900 font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 hover:bg-gray-50 active:scale-95"
+                    className="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-95"
                 >
-                    <Sparkles size={16} className="text-indigo-600" />
+                    <Sparkles size={16} className="text-white" />
                     <span>Try On Now</span>
                 </button>
             </div>
 
             {/* Content */}
             <div className="p-5">
-                <div className="mb-1 text-xs font-bold tracking-wide text-indigo-600 uppercase">
+                <div className="mb-1 text-xs font-bold tracking-wide text-blue-600 uppercase">
                     {product.category}
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 font-outfit mb-2 group-hover:text-indigo-600 transition-colors">
+                <h3 className="text-lg font-semibold text-gray-900 font-outfit mb-2 group-hover:text-blue-600 transition-colors">
                     {product.name}
                 </h3>
             </div>

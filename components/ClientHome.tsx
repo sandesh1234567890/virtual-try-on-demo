@@ -24,18 +24,18 @@ export default function ClientHome({ products, categories, activeCategory }: Cli
             {/* Hero Section */}
             <section className="relative overflow-hidden bg-gray-900 text-white pb-32 pt-24 px-6">
                 {/* Abstract Background */}
-                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-                <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+                <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
-                <div className="container mx-auto max-w-6xl relative z-10 flex flex-col items-center text-center">
+                <div className="container mx-auto max-w-6xl relative z-10 flex flex-col items-center text-center px-4">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-medium backdrop-blur-md mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <Sparkles size={12} className="text-yellow-300" />
                         <span>AI-Powered Virtual Experience</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight animate-in fade-in slide-in-from-bottom-6 duration-700">
+                    <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight animate-in fade-in slide-in-from-bottom-6 duration-700">
                         Curated Fashion. <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-purple-200">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">
                             Virtual Reality.
                         </span>
                     </h1>
@@ -90,7 +90,7 @@ export default function ClientHome({ products, categories, activeCategory }: Cli
                             {/* "Upload Your Own" Card - Always First */}
                             <div
                                 onClick={() => setIsCustomTryOnOpen(true)}
-                                className="group relative flex flex-col items-center justify-center text-center bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] aspect-[3/4]"
+                                className="group relative flex flex-col items-center justify-center text-center bg-gradient-to-br from-blue-600 to-cyan-700 rounded-2xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] aspect-[3/4]"
                             >
                                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                                 <div className="relative z-10 p-6">
@@ -98,10 +98,10 @@ export default function ClientHome({ products, categories, activeCategory }: Cli
                                         <Sparkles className="text-white w-8 h-8" />
                                     </div>
                                     <h3 className="text-2xl font-bold text-white mb-2">Upload Custom</h3>
-                                    <p className="text-indigo-100 text-sm leading-relaxed">
+                                    <p className="text-blue-100 text-sm leading-relaxed">
                                         Have a specific item in mind? Upload any image or URL to try it on.
                                     </p>
-                                    <div className="mt-8 px-6 py-2 bg-white text-indigo-900 rounded-full text-sm font-bold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                                    <div className="mt-8 px-6 py-2 bg-white text-blue-900 rounded-full text-sm font-bold opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                                         Start Creating
                                     </div>
                                 </div>

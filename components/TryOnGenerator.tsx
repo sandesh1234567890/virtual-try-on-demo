@@ -163,7 +163,7 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
                                     {garmentInputType === 'upload' && (
                                         <div
                                             onClick={() => document.getElementById('garment-upload')?.click()}
-                                            className={`cursor-pointer border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all ${garmentImage ? 'border-indigo-300 bg-indigo-50/50' : 'border-gray-300 hover:bg-gray-100'}`}
+                                            className={`cursor-pointer border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all ${garmentImage ? 'border-blue-300 bg-blue-50/50' : 'border-gray-300 hover:bg-gray-100'}`}
                                         >
                                             {garmentImage && !product ? (
                                                 <div className="relative w-full h-32">
@@ -216,7 +216,7 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
                             </h3>
                             <div
                                 onClick={() => document.getElementById('user-upload')?.click()}
-                                className={`cursor-pointer border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all ${userImage ? 'border-indigo-300 bg-indigo-50/50' : 'border-gray-300 hover:bg-gray-100 hover:border-gray-400'}`}
+                                className={`cursor-pointer border-2 border-dashed rounded-xl p-4 flex flex-col items-center justify-center text-center transition-all ${userImage ? 'border-blue-300 bg-blue-50/50' : 'border-gray-300 hover:bg-gray-100 hover:border-gray-400'}`}
                             >
                                 {userImage ? (
                                     <div className="relative w-full aspect-[3/4] max-h-48">
@@ -242,10 +242,10 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
                         <button
                             onClick={handleGenerate}
                             disabled={!userImage || !garmentImage || isGenerating}
-                            className="w-full bg-gray-900 text-white py-3.5 rounded-xl font-bold text-base hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-gray-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                            className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-blue-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
                         >
-                            {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} className="text-yellow-300" />}
-                            {isGenerating ? 'Designing...' : 'Generate Try-On'}
+                            {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} className="text-blue-400" />}
+                            {isGenerating ? 'Tailoring...' : 'Generate Try-On'}
                         </button>
                     </div>
                 </div>
@@ -272,7 +272,7 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
                                         link.download = `try-on-result.${extension}`;
                                         link.click();
                                     }}
-                                    className="bg-indigo-600 text-white px-4 py-2 rounded-full shadow hover:bg-indigo-700 font-bold text-xs flex items-center gap-1.5 transition-transform active:scale-95"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-full shadow hover:bg-blue-700 font-bold text-xs flex items-center gap-1.5 transition-transform active:scale-95"
                                 >
                                     <Download size={14} /> Download
                                 </button>
