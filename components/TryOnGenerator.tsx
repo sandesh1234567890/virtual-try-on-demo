@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import Image from 'next/image';
 import { Product } from '@/lib/products';
 import { Upload, X, Loader2, Download, Sparkles, Link as LinkIcon, Image as ImageIcon } from 'lucide-react';
@@ -22,12 +22,61 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
     const [resultImage, setResultImage] = useState<string | null>(null);
     const [resultMimeType, setResultMimeType] = useState<string>('image/png');
     const [error, setError] = useState<string | null>(null);
+    const [elapsedTime, setElapsedTime] = useState(0);
+
+    // Resize helper
+    const resizeImage = (base64Str: string, maxWidth = 800, maxHeight = 800): Promise<string> => {
+        return new Promise((resolve) => {
+            const img = new (window as any).Image();
+            img.src = base64Str;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', 0.8));
+            };
+        });
+    };
+
+    // Timer Effect
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (isGenerating) {
+            setElapsedTime(0);
+            interval = setInterval(() => {
+                setElapsedTime((prev) => prev + 1);
+            }, 1000);
+        } else {
+            setElapsedTime(0);
+        }
+        return () => clearInterval(interval);
+    }, [isGenerating]);
 
     const handleUserFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (ev) => setUserImage(ev.target?.result as string);
+            reader.onload = async (ev) => {
+                const base64 = ev.target?.result as string;
+                const resized = await resizeImage(base64);
+                setUserImage(resized);
+            };
             reader.readAsDataURL(file);
         }
     };
@@ -36,7 +85,11 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
         const file = e.target.files?.[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (ev) => setGarmentImage(ev.target?.result as string);
+            reader.onload = async (ev) => {
+                const base64 = ev.target?.result as string;
+                const resized = await resizeImage(base64);
+                setGarmentImage(resized);
+            };
             reader.readAsDataURL(file);
         }
     };
@@ -242,11 +295,24 @@ export default function TryOnGenerator({ product, onClose }: TryOnGeneratorProps
                         <button
                             onClick={handleGenerate}
                             disabled={!userImage || !garmentImage || isGenerating}
-                            className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-blue-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                            className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-blue-200 transition-all hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden"
                         >
-                            {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} className="text-blue-400" />}
-                            {isGenerating ? 'Tailoring...' : 'Generate Try-On'}
+                            {isGenerating && (
+                                <div
+                                    className="absolute inset-0 bg-blue-500/20 transition-all duration-1000 ease-linear"
+                                    style={{ width: `${Math.min((elapsedTime / 25) * 100, 95)}%` }}
+                                ></div>
+                            )}
+                            <div className="relative flex items-center gap-2">
+                                {isGenerating ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} className="text-blue-400" />}
+                                {isGenerating ? `Tailoring... (${elapsedTime}s)` : 'Generate Try-On'}
+                            </div>
                         </button>
+                        {isGenerating && (
+                            <p className="text-[10px] text-center text-gray-400 animate-pulse">
+                                Estimated time: ~20 seconds
+                            </p>
+                        )}
                     </div>
                 </div>
 

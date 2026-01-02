@@ -17,10 +17,17 @@ export default async function AdminDashboard() {
     async function deleteProduct(formData: FormData) {
         'use server';
         const id = formData.get('id') as string;
-        if (id) {
-            await prisma.product.delete({ where: { id } });
-            revalidatePath('/admin');
-            revalidatePath('/'); // Update homepage too
+        try {
+            if (id) {
+                await prisma.product.delete({ where: { id } });
+                revalidatePath('/admin');
+                revalidatePath('/'); // Update homepage too
+            }
+        } catch (error: any) {
+            console.error("Delete Error:", error);
+            // On SQLite Vercel, this usually fails with "Read Only"
+            // We can't easily show a nice UI error from a basic server action form 
+            // without more complex logic, but we can prevent the crash.
         }
     }
 
